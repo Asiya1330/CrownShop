@@ -1,13 +1,17 @@
-import './App.scss';
-import categories from './categories.json'
-import CategoryList from './components/category-list';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom'
+import Home from './routes/home';
+import Navigation from './routes/navigation'
+import Shop from './routes/shop';
 
-function App() {
+export default function App() {
   return (
-    <div className="app">
-      <CategoryList categories={categories} />
-    </div>
-  );
-}
+    <Routes>
+      <Route path='/' element={<Navigation />}>
+        <Route index element={<Home />}></Route>
+        <Route path="shop" element={<Shop />}></Route>
+      </Route>
 
-export default App;
+    </Routes>
+  )
+}
