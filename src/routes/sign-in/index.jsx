@@ -9,7 +9,6 @@ export default function SignIn() {
     useEffect(() => {
         async function fetchData() {
             const response = await getRedirectResult(auth); //auth maintain the getRedirectResult and sen us bacl the user response
-            console.log(response);
             if (response) {
                 const userDocRef = await createUserDocumentFromAuth(response.user)
                 console.log(userDocRef);
