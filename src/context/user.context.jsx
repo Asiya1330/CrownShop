@@ -18,9 +18,7 @@ export const UserProvider = ({ children }) => {
     useEffect(() => {
         const unsubscribe = authStateChangeListner(async (user) => {
             if (user) await createUserDocumentFromAuth(user);
-
             setCurrentUser(user)
-            console.log(user);
         })
 
         //for any memory leak, unsubs, auth Listner
