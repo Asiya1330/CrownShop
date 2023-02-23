@@ -9,7 +9,9 @@ import {
     signInWithPopup,
     GoogleAuthProvider,
     signInWithEmailAndPassword,
-    createUserWithEmailAndPassword
+    createUserWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged
 } from 'firebase/auth'
 
 import {
@@ -51,6 +53,7 @@ export const db = getFirestore();
 export const createUserDocumentFromAuth = async (user, additionalInfo = {}) => {
     const userDocRef = doc(db, 'users', user.uid);
     const userSnapshot = await getDoc(userDocRef);
+    
     if (!userSnapshot.exists()) {
         const { displayName, email } = user;
         const createdAt = new Date();
@@ -76,6 +79,15 @@ export const creatAuthUserWithEmailAndPassword = async (email, password) => {
 export const signInUserWithEmailAndPassword = async (email, password) => {
     if (!email || !password) return;
     return await signInWithEmailAndPassword(auth, email, password);
+}
+
+//auth keeps track of which user is signed in/signout
+export const signingOutUser = async () => await signOut(auth)
+
+//on onAuthStateChanged listen to `auth` and whenever i chnages(on signin, signout)
+//it takes, auth, and callback -> runs whever auth changes
+export const authStateChangeListner = (callback) => {
+    return onAuthStateChanged(auth, callback)
 }
 
 

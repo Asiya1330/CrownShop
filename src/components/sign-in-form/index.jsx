@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import FormInput from '../form-input'
 import Button from '../button';
 import "./index.scss";
@@ -9,6 +9,7 @@ import {
     createUserDocumentFromAuth
 } from '../../utils/firebase/firebase.utils';
 import { getRedirectResult } from 'firebase/auth'
+import { UserContext } from '../../context/user.context';
 
 
 const defaultSignInValues = {
@@ -29,12 +30,13 @@ export default function SignInForm() {
     }, []);
 
     const [signinFormfields, setsigninFormfields] = useState(defaultSignInValues);
-    const { email, password } = signinFormfields
+    const { email, password } = signinFormfields;
+
     const submitHandler = async (e) => {
         e.preventDefault(); //prevent default behavior of button
         try {
             const { email, password } = signinFormfields;
-            await signInUserWithEmailAndPassword(email, password)
+            await signInUserWithEmailAndPassword(email, password);
             resetFormFields();
         }
         catch (error) {
@@ -44,13 +46,12 @@ export default function SignInForm() {
         }
     }
 
+    const logGoogleUser = async () => {
+        await signInWithGooglePopup();
+    }
+
     const resetFormFields = () => {
         setsigninFormfields(defaultSignInValues);
-    }
-    const logGoogleUser = async () => {
-        const { user } = await signInWithGooglePopup();
-        const userDocRef = await createUserDocumentFromAuth(user);
-        console.log(userDocRef);
     }
 
     const changeHandler = (e) => {
