@@ -7,14 +7,14 @@ export default function Navigation() {
     return (
         <div>
             <div className='navigation'>
-                <Link to='/' className='logo-con'>
+                <Link to='/' className='logo-container'>
                     <div>
                         <CrownLogo />
                     </div>
                 </Link>
-                <div className='nav-links-cont'>
+                <div className='nav-links-container'>
                     <Link to="/shop" className='nav-link'>SHOP</Link>
-                    <Link to="/sign-in" className='nav-link'>SIGN IN</Link>
+                    <Link to="/auth" className='nav-link'>SIGN IN</Link>
 
                 </div>
             </div>
