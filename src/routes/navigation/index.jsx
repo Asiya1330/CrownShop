@@ -2,10 +2,10 @@ import React, { useContext } from 'react'
 import { Link, Outlet } from 'react-router-dom';
 import { CrownLogo } from '../../assets';
 import { UserContext } from '../../context/user.context';
-import { auth, signingOutUser } from '../../utils/firebase/firebase.utils';
+import { signingOutUser } from '../../utils/firebase/firebase.utils';
 import './index.scss';
 import CartIcon from '../../components/cart-icon'
-import CartDropDown from '../../components/card-dropdown';
+import CartDropDown from '../../components/cart-dropdown';
 import { CartContext } from '../../context/cart-context';
 
 export default function Navigation() {
