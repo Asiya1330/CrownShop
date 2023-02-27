@@ -6,8 +6,6 @@ export default function CheckoutItem({ product }) {
     const { name, quantity, price, imageUrl } = product;
     const { addItemToCart, decreaseCartItemQuantity, removeCartItem } = useContext(CartContext);
 
-
-
     const incrementQuantity = () => addItemToCart(product)
     const decrementQuantity = () => decreaseCartItemQuantity(product)
 
@@ -31,7 +29,6 @@ export default function CheckoutItem({ product }) {
                 <div className="arrow" onClick={incrementQuantity}>
                     &#10095;
                 </div>
-
             </div>
             <div className="price">
                 {price}

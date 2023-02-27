@@ -1,14 +1,14 @@
 import React from 'react';
 import SignUpForm from '../../components/sign-up-form';
 import SignInForm from '../../components/sign-in-form';
-import './index.scss'
+import { SignInDiv } from './index.style.jsx'
 
 export default function SignIn() {
 
     return (
-        <div className='signInPage'>
+        <SignInDiv>
             <SignInForm />
             <SignUpForm />
-        </div>
+        </SignInDiv>
     )
 }

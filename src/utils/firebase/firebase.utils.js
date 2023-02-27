@@ -18,7 +18,11 @@ import {
     getFirestore,
     doc,  //getting document instance
     getDoc,
-    setDoc
+    setDoc,
+    collection,
+    writeBatch,
+    query,
+    getDocs
 } from 'firebase/firestore'
 
 // Your web app's Firebase configuration
@@ -49,6 +53,48 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider)
 export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider)
 
 export const db = getFirestore();
+
+/**
+ * 
+ * @param {String} collectionKey name of collection
+ * @param {Array} objectsToAdd products with respect to categories.. see in shop_data.js
+ */
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+    const collectionRef = collection(db, collectionKey); //collection reg just like docRef = doc(db, docKey);
+    const batch = writeBatch(db); //batch for writing more than 1 data inside db
+
+    objectsToAdd.forEach((category) => {
+        const docRef = doc(collectionRef, category.title.toLowerCase());
+        batch.set(docRef, category)
+    })
+    await batch.commit(); //after ending batch session
+    console.log('successfully migrated');
+}
+
+export const getCategoriesAndDocuments = async () => {
+    const collectionRef = collection(db, 'categories');
+    const q = query(collectionRef);
+
+    const querySnapshot = await getDocs(q);
+    /**
+     * hats: {
+     *  title: '',
+     *  items:[
+     * {}
+     * ],
+     *  clothes:{
+     * title: .....
+     * }
+     * }
+     * */
+    const categoryMap = querySnapshot.docs.reduce((acc, docSnapShot) => {
+        const { title, items } = docSnapShot.data();
+        acc[title.toLowerCase()] = items;
+        return acc;
+    }, {}) //we have to make structure like above
+
+    return categoryMap;
+}
 
 export const createUserDocumentFromAuth = async (user, additionalInfo = {}) => {
     const userDocRef = doc(db, 'users', user.uid);

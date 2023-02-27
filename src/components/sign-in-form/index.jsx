@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import FormInput from '../form-input'
 import Button from '../button';
-import "./index.scss";
+import { SignInContainer, SignInHeader, BtnContainer } from "./index.style.jsx";
+import { BUTTON_CLASS_TYPES } from '../button'
 import {
     auth,
     signInWithGooglePopup,
@@ -9,8 +10,6 @@ import {
     createUserDocumentFromAuth
 } from '../../utils/firebase/firebase.utils';
 import { getRedirectResult } from 'firebase/auth'
-import { UserContext } from '../../context/user.context';
-
 
 const defaultSignInValues = {
     email: '',
@@ -60,8 +59,8 @@ export default function SignInForm() {
     }
 
     return (
-        <div className='sign-in-container'>
-            <h2>Already have an account??</h2>
+        <SignInContainer>
+            <SignInHeader>Already have an account?</SignInHeader>
             <span>Sign in with your email and pasword</span>
             <form onSubmit={submitHandler}>
                 <FormInput
@@ -80,13 +79,12 @@ export default function SignInForm() {
                     name="password"
                     onChange={changeHandler}
                 />
-                <div className='btn-container'>
+                <BtnContainer>
                     <Button type="submit">Sign IN</Button>
-                    <Button type="button" buttonType="google" onClick={logGoogleUser}>Sign in with Google</Button>
+                    <Button type="button" buttonType={BUTTON_CLASS_TYPES.google} onClick={logGoogleUser}>Sign in with Google</Button>
                     {/* <Button buttonType="inverted" onClick={signInWithGoogleRedirect}>Sign in with Google Redirect</Button> */}
-                </div>
+                </BtnContainer>
             </form>
-
-        </div>
+        </SignInContainer>
     )
 }

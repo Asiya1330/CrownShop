@@ -23,9 +23,9 @@ const addToCartHandler = (product, cartItems) => {
     return [...cartItems, { ...product, quantity: 1 }]
 }
 
-const decrementItemQuantityHandler = (product, cartItems, removeCartItem) => {
+const decrementItemQuantityHandler = (product, cartItems) => {
     if (product.quantity === 1) {
-        return removeCartItem(product);
+        return removeItemFromCartHandler(product, cartItems);
     }
     return cartItems.map(item => item.id === product.id ? { ...item, quantity: product.quantity - 1 } : item)
 }

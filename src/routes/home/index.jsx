@@ -1,11 +1,11 @@
 import categories from '../../categories.json'
-import CategoryList from '../../components/category-list';
+import Directory from '../../components/directory';
 import '../../App.scss';
 
 function Home() {
   return (
     <div className="home">
-      <CategoryList categories={categories} />
+      <Directory categories={categories} />
     </div>
   );
 }

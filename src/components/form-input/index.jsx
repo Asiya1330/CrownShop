@@ -1,10 +1,10 @@
 import React from 'react';
-import './index.scss'
+import { Input, FormInputLabel, Group } from './index.style.jsx'
 
 export default function FormInput({ label, ...inputProps }) {
     return (
-        <div className='group'>
-            <input className='form-input' {...inputProps}
+        <Group>
+            <Input className='form-input' {...inputProps}
             // type="text"
             // value={displayName}
             // required
@@ -14,8 +14,8 @@ export default function FormInput({ label, ...inputProps }) {
             />
             {
                 label &&
-                <label className={`${inputProps.value.length > 0 ? 'move-up' : ''} form-input-label`}>{label}</label>
+                <FormInputLabel moveUp={inputProps.value.length}>{label}</FormInputLabel>
             }
-        </div>
+        </Group>
     )
 }
