@@ -1,0 +1,3 @@
+export const SET_CATEGORIES_TYPES = {
+    SET_CATEGORIES: 'category/SET_CATEGORIES'
+}

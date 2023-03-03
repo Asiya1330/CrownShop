@@ -1,15 +1,18 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './index.style.jsx';
 import { useParams } from 'react-router-dom'
-import { CategoriesContext } from '../../context/categories.context';
 import ProductCard from '../../components/product-card';
 import { CategoryContainer,Title} from'./index.style'
+import { useSelector } from 'react-redux';
+import { selectcategoriesMap } from '../../store/categories/categories.selector.js';
 
 export default function Category() {
     const { category } = useParams();
-    const { categoriesMap } = useContext(CategoriesContext);
+    const categoriesMap = useSelector(selectcategoriesMap)
+
     // const products = categoriesMap[category] // we can use it, but everytime compoenent mount it redeclafre this..so we use useEffect hook
     const [products, setProducts] = useState(categoriesMap[category]);
+
     useEffect(() => {
         setProducts(categoriesMap[category])
     }, [category, categoriesMap])
