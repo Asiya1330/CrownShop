@@ -99,7 +99,8 @@ export const createUserDocumentFromAuth = async (user, additionalInfo = {}) => {
             console.log('Error creating new user', err.message);
         }
     }
-    return userDocRef;
+    return userSnapshot;
+    // return userDocRef;
 }
 
 export const creatAuthUserWithEmailAndPassword = async (email, password) => {
@@ -120,4 +121,16 @@ export const authStateChangeListner = (callback) => {
     return onAuthStateChanged(auth, callback)
 }
 
+export const getCurrentUser = () => {
+    return new Promise((resolve, reject) => {
+        const unsubscribe = onAuthStateChanged(
+            auth,
+            (userAuth) => {
+                unsubscribe();
+                resolve(userAuth);
+            },
+            reject
+        )
+    })
+}
 

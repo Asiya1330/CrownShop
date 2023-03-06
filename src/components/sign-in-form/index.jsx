@@ -10,6 +10,8 @@ import {
     createUserDocumentFromAuth
 } from '../../utils/firebase/firebase.utils';
 import { getRedirectResult } from 'firebase/auth'
+import { useDispatch } from 'react-redux';
+import { emailSignInStart, googleSignInStart } from '../../store/user/user.actions';
 
 const defaultSignInValues = {
     email: '',
@@ -31,11 +33,12 @@ export default function SignInForm() {
     const [signinFormfields, setsigninFormfields] = useState(defaultSignInValues);
     const { email, password } = signinFormfields;
 
+    const dispatch = useDispatch();
     const submitHandler = async (e) => {
         e.preventDefault(); //prevent default behavior of button
         try {
             const { email, password } = signinFormfields;
-            await signInUserWithEmailAndPassword(email, password);
+            dispatch(emailSignInStart(email, password));
             resetFormFields();
         }
         catch (error) {
@@ -45,15 +48,15 @@ export default function SignInForm() {
         }
     }
 
-    const logGoogleUser = async () => {
-        await signInWithGooglePopup();
+    const logGoogleUser = () => {
+        dispatch(googleSignInStart());
     }
 
     const resetFormFields = () => {
         setsigninFormfields(defaultSignInValues);
     }
 
-    const changeHandler = (e) => {
+    const onChangeHandler = (e) => {
         const { name, value } = e.target;
         setsigninFormfields({ ...signinFormfields, [name]: value })
     }
@@ -69,7 +72,7 @@ export default function SignInForm() {
                     required
                     value={email}
                     name="email"
-                    onChange={changeHandler}
+                    onChange={onChangeHandler}
                 />
                 <FormInput
                     label="Password"
@@ -77,7 +80,7 @@ export default function SignInForm() {
                     required
                     value={password}
                     name="password"
-                    onChange={changeHandler}
+                    onChange={onChangeHandler}
                 />
                 <BtnContainer>
                     <Button type="submit">Sign IN</Button>

@@ -5,19 +5,13 @@ import Navigation from './routes/navigation'
 import Shop from './routes/shop';
 import Authenticate from './routes/authenticate';
 import Checkout from './routes/checkout';
-import { authStateChangeListner, createUserDocumentFromAuth } from './utils/firebase/firebase.utils';
-import { setCurrentUser } from './store/user/user.actions';
+import { checkUserSession } from './store/user/user.actions';
 import { useDispatch } from 'react-redux';
 
 export default function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    const unsubscribe = authStateChangeListner(async (user) => {
-      if (user) await createUserDocumentFromAuth(user);
-      dispatch(setCurrentUser(user))
-    })
-    //for any memory leak, unsubs, auth Listner
-    return unsubscribe
+    dispatch(checkUserSession())
   }, [])
 
   return (
@@ -27,9 +21,7 @@ export default function App() {
         <Route path="shop/*" element={<Shop />}></Route>
         <Route path="auth" element={<Authenticate />}></Route>
         <Route path="checkout" element={<Checkout />}></Route>
-
       </Route>
-
     </Routes>
   )
 }

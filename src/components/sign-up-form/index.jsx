@@ -3,6 +3,8 @@ import { creatAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from '.
 import FormInput from '../form-input'
 import { SignUpContainer, SignUpHeader } from './index.style.jsx';
 import Button, { BUTTON_CLASS_TYPES } from '../button'
+import { useDispatch } from 'react-redux';
+import { signUpStart } from '../../store/user/user.actions';
 
 const defaultFormFields = {
     displayName: '',
@@ -16,6 +18,7 @@ export default function SignUpForm() {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { displayName, email, password, confirmPassword } = formFields;
 
+    const dispatch = useDispatch();
     const submitHandler = async (e) => {
         e.preventDefault();
         const { password, confirmPassword, displayName, email } = formFields;
@@ -24,8 +27,7 @@ export default function SignUpForm() {
             return;
         }
         try {
-            const { user } = await creatAuthUserWithEmailAndPassword(email, password);
-            await createUserDocumentFromAuth(user, { displayName }); //displayname will be null in case of createuserbyemailandpass
+            dispatch(signUpStart(email, password, displayName));
             resetForm();
         }
         catch (error) {
