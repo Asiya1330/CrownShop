@@ -5,8 +5,6 @@ import { SignInContainer, SignInHeader, BtnContainer } from "./index.style.jsx";
 import { BUTTON_CLASS_TYPES } from '../button'
 import {
     auth,
-    signInWithGooglePopup,
-    signInUserWithEmailAndPassword,
     createUserDocumentFromAuth
 } from '../../utils/firebase/firebase.utils';
 import { getRedirectResult } from 'firebase/auth'

@@ -1,18 +1,17 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom';
 import { CrownLogo } from '../../assets';
-import { signingOutUser } from '../../utils/firebase/firebase.utils';
 import CartIcon from '../../components/cart-icon'
 import CartDropDown from '../../components/cart-dropdown';
 import { NavigationContainer, LogoContainer, NavLinks, NavLink } from './index.style.jsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectUserReducer } from '../../store/user/user.selector';
+import { selectCurrentUser } from '../../store/user/user.selector';
 import { selectIsCartOpen } from '../../store/cart/cart.selectors';
 import { signOutStart } from '../../store/user/user.actions';
 
 export default function Navigation() {
 
-    const currentUser = useSelector(selectUserReducer);
+    const currentUser = useSelector(selectCurrentUser);
     const isCartOpen = useSelector(selectIsCartOpen);
     const dispatch = useDispatch()
     const handleSignOut = () => dispatch(signOutStart())
