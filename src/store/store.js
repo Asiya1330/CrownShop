@@ -21,10 +21,10 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 //before the action hits reducer, it hit middleware first
 //can be multilple middlewares..logger, middleware1, middleware2...
-let applyMiddlewareFunc;
+let logger = [];
 
 //only log state when in developement
-if (process.env.NODE_ENV !== `production`) applyMiddlewareFunc = applyMiddleware(createLogger(), thunk, sagaMiddleware)
+if (process.env.NODE_ENV !== `production`) logger = [createLogger()]
 
 //use devtools not in production
 const composedEnhancer = (process.env.NODE_ENV !== 'production' &&
@@ -33,7 +33,7 @@ const composedEnhancer = (process.env.NODE_ENV !== 'production' &&
     compose;
 
 //middleware enhances our store, b/c it runs before reducers
-const composedEnhancers = composedEnhancer(applyMiddlewareFunc)
+const composedEnhancers = composedEnhancer(applyMiddleware(sagaMiddleware, ...logger))
 
 export const store = createStore(persistedReducer, composedEnhancers);
 
