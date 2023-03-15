@@ -9,7 +9,11 @@ const moveUpLabelStyles = css`
     color: $main-color;
 `
 
-export const FormInputLabel = styled.label`
+type IFormInputLabelProps = {
+    moveUp?: boolean
+}
+
+export const FormInputLabel = styled.label<IFormInputLabelProps>`
 color: ${SubColor};
 font-size: 16px;
 font-weight: normal;

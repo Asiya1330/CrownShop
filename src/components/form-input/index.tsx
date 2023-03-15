@@ -1,10 +1,10 @@
-import React, { HTMLAttributes } from 'react';
-import { Input, FormInputLabel, Group } from './index.style.jsx'
+import { InputHTMLAttributes } from 'react';
+import { Input, FormInputLabel, Group } from './index.style'
 
 type FormInputProps = {
     label: string,
-    value: string;
-}
+} & InputHTMLAttributes<HTMLInputElement>
+
 export default function FormInput({ label, ...inputProps }: FormInputProps) {
     return (
         <Group>
@@ -18,7 +18,9 @@ export default function FormInput({ label, ...inputProps }: FormInputProps) {
             />
             {
                 label &&
-                <FormInputLabel moveUp={inputProps.value.length}>{label}</FormInputLabel>
+                <FormInputLabel moveUp={Boolean(inputProps.value &&
+                    (inputProps?.value) === 'string' &&
+                    inputProps?.value.length)}>{label}</FormInputLabel>
             }
         </Group>
     )

@@ -1,9 +1,8 @@
-import React from 'react'
 import { Outlet } from 'react-router-dom';
 import { CrownLogo } from '../../assets';
 import CartIcon from '../../components/cart-icon'
 import CartDropDown from '../../components/cart-dropdown';
-import { NavigationContainer, LogoContainer, NavLinks, NavLink } from './index.style.jsx';
+import { NavigationContainer, LogoContainer, NavLinks, NavLink } from './index.style';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentUser } from '../../store/user/user.selector';
 import { selectIsCartOpen } from '../../store/cart/cart.selectors';
@@ -29,11 +28,11 @@ export default function Navigation() {
                         currentUser
                         // {/* we can use as to change the html tag that we use in styled components */}
                             ? <NavLink as={'span'} onClick={handleSignOut}>SIGN OUT</NavLink>
-                            : <NavLink to="/auth" >SIGN UP</NavLink>
+                            : <NavLink to="/auth" >SIGN IN</NavLink>
                     }
-                    <NavLink>
+                    {/* <NavLink> */}
                         <CartIcon />
-                    </NavLink>
+                    {/* </NavLink> */}
                     {
                         isCartOpen && <CartDropDown />
                     }

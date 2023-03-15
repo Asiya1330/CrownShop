@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, FormEvent, ChangeEvent } from 'react'
 import FormInput from '../form-input'
 import Button from '../button';
-import { SignInContainer, SignInHeader, BtnContainer } from "./index.style.jsx";
+import { SignInContainer, SignInHeader, BtnContainer } from "./index.style";
 import { BUTTON_CLASS_TYPES } from '../button'
 import {
     auth,
@@ -32,14 +32,14 @@ export default function SignInForm() {
     const { email, password } = signinFormfields;
 
     const dispatch = useDispatch();
-    const submitHandler = async (e) => {
+    const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault(); //prevent default behavior of button
         try {
             const { email, password } = signinFormfields;
             dispatch(emailSignInStart(email, password));
             resetFormFields();
         }
-        catch (error) {
+        catch (error: any) {
             if (error.code === 'auth/wrong-password') alert('You have entered the wrong credentials!');
             if (error.code === 'auth/user-not-found') alert("User does not exists!")
             console.log(error);
@@ -54,7 +54,7 @@ export default function SignInForm() {
         setsigninFormfields(defaultSignInValues);
     }
 
-    const onChangeHandler = (e) => {
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setsigninFormfields({ ...signinFormfields, [name]: value })
     }
@@ -85,7 +85,7 @@ export default function SignInForm() {
                     <Button type="button" buttonType={BUTTON_CLASS_TYPES.google} onClick={logGoogleUser}>Sign in with Google</Button>
                     {/* <Button buttonType="inverted" onClick={signInWithGoogleRedirect}>Sign in with Google Redirect</Button> */}
                 </BtnContainer>
-            </form>
+            </form> 
         </SignInContainer>
     )
 }
