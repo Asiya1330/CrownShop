@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import './index.style.jsx';
+import { useEffect, useState } from 'react'
+import './index.style';
 import { useParams } from 'react-router-dom'
 import ProductCard from '../../components/product-card';
-import { CategoryContainer,Title} from'./index.style'
+import { CategoryContainer, Title } from './index.style'
 import { useSelector } from 'react-redux';
-import { selectCategoriesIsLoading, selectcategoriesMap } from '../../store/categories/categories.selector.js';
-import Spinner from '../../components/spinner/index.jsx';
+import { selectCategoriesIsLoading, selectcategoriesMap } from '../../store/categories/categories.selector';
+import Spinner from '../../components/spinner/index';
 
 export default function Category() {
     const { category } = useParams();
@@ -23,7 +23,7 @@ export default function Category() {
             <Title>{category.toUpperCase()}</Title>
             {
                 isLoading ?
-                    <Spinner /> :  
+                    <Spinner /> :
                     <CategoryContainer>
                         <>
                             {products && products.map((product) => {

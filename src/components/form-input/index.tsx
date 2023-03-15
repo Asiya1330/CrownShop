@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
 import { Input, FormInputLabel, Group } from './index.style.jsx'
 
-export default function FormInput({ label, ...inputProps }) {
+type FormInputProps = {
+    label: string,
+    value: string;
+}
+export default function FormInput({ label, ...inputProps }: FormInputProps) {
     return (
         <Group>
             <Input className='form-input' {...inputProps}
