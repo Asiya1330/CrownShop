@@ -4,7 +4,7 @@ const SubColor = 'grey';
 
 // mixin like in sass
 const moveUpLabelStyles = css`
- top: -14px;
+    top: -14px;
     font-size: 12px;
     color: $main-color;
 `
@@ -31,25 +31,25 @@ ${({ moveUp }) => moveUp && moveUpLabelStyles}
 `
 
 export const Input = styled.input`
-background: none;
-background-color: white;
-color: ${SubColor};
-font-size: 18px;
-padding: 10px 10px 10px 5px;
-display: block;
-width: 100%;
-border: none;
-border-radius: 0;
-border-bottom: 1px solid ${SubColor};
-margin: 25px 0;
+    background: none;
+    background-color: white;
+    color: ${SubColor};
+    font-size: 18px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 100%;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid ${SubColor};
+    margin: 25px 0;
 
-&:focus {
-    outline: none;
-}
+    &:focus {
+        outline: none;
+    }
 
-&:focus~${FormInputLabel} {
-    ${moveUpLabelStyles}
-}
+    &:focus~${FormInputLabel} {
+        ${moveUpLabelStyles}
+    }
 `
 
 export const Group = styled.div`

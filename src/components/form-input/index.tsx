@@ -18,9 +18,10 @@ export default function FormInput({ label, ...inputProps }: FormInputProps) {
             />
             {
                 label &&
-                <FormInputLabel moveUp={Boolean(inputProps.value &&
-                    (inputProps?.value) === 'string' &&
-                    inputProps?.value.length)}>{label}</FormInputLabel>
+                <FormInputLabel moveUp={
+                    Boolean(inputProps.value &&
+                    typeof(inputProps.value) === 'string' &&
+                    inputProps.value.length)}>{label}</FormInputLabel>
             }
         </Group>
     )
